@@ -37,25 +37,37 @@ class Game {
         this.players = players;
         this.deckOptions = deckOptions;
         this.deckInPlay = null;
+        this.userDeck = null;
     }
-    start () {
-        alert ("Welcome to the game, press ok to continue.")
-        let message = "What deck would you like to play with, enter the relevant number?";
+
+    validateDeckChoice () {
+        let message = "What deck would you like to play with? Please enter the corresponding number.";
         for (let i=0; i < this.deckOptions.length; i++) {
             message = message.concat (`${i+1}.${this.deckOptions[i].name} `)
         }
-        let userDeck = prompt (`${message}`)
+        userDeck = prompt (`${message}`)
+        userDeck = parseInt (userDeck, 10);
         this.deckInPlay = this.deckOptions[(parseInt(userDeck)-1)]
-        alert (`Thank you for choosing ${this.deckInPlay.name}`)
+            if (this.deckOptions[this.deckInPlay]!==""||this.deckOptions[this.deckInPlay]!==null||this.deckOptions[this.deckInPlay]=='null'){
+                this.validateDeckChoice()
+            }   
+            else {
+                alert (`Thank you for choosing ${this.deckInPlay.name}`)
+            }
+    }
+
+    start () {
+        alert ("Welcome to the game, press ok to continue.")
+        this.validateDeckChoice();
         this.deckInPlay.shuffle();
         let noOfCardsPerPlayer= Math.floor(this.deckInPlay.cards.length/this.players.length);
 
-        console.log(this.deckInPlay)
-        console.log(this.players)
+        // console.log(this.deckInPlay)
+        // console.log(this.players)
 
-        console.log (`this is deckplay ${this.deckInPlay.length}`)
-        console.log (this.players.length)
-        console.log (noOfCardsPerPlayer)
+        // console.log (`this is deckplay ${this.deckInPlay.cards.length}`)
+        // console.log (this.players.length)
+        // console.log (noOfCardsPerPlayer)
         let n = 0;
         let deckCardNo = 0;
         while (n < noOfCardsPerPlayer){
@@ -77,7 +89,6 @@ class Game {
  // remember that number validation needs to happen.
     }
 }
-//deal, loop through deck and distribute to players in turn. 
 
 class Player {
     constructor (name){
@@ -85,13 +96,6 @@ class Player {
         this.hand = [];
     }
 }
-
-
-//working on the deal fuction
-
-
-
-
 
 
 const animalDeck = new Deck ("Animal Top Trumps", [
