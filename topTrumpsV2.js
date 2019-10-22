@@ -45,13 +45,14 @@ class Game {
         for (let i=0; i < this.deckOptions.length; i++) {
             message = message.concat (`${i+1}.${this.deckOptions[i].name} `)
         }
-        userDeck = prompt (`${message}`)
-        userDeck = parseInt (userDeck, 10);
-        this.deckInPlay = this.deckOptions[(parseInt(userDeck)-1)]
-            if (this.deckOptions[this.deckInPlay]!==""||this.deckOptions[this.deckInPlay]!==null||this.deckOptions[this.deckInPlay]=='null'){
+        this.userDeck = prompt (`${message}`); //takes user input (list from 1)
+        this.userDeck = (parseInt (this.userDeck, 10)) -1 ; //makes the number an integer to the power of 10, and minuses 1 so list starts from 0
+            if ( (!(this.userDeck<=this.deckOptions.length)) || (!(Number.isInteger(this.userDeck))) || (this.userDeck<0)) {
+                alert ("That is not a valid option.");
                 this.validateDeckChoice()
-            }   
-            else {
+            }
+            else{
+                this.deckInPlay = this.deckOptions[this.userDeck]
                 alert (`Thank you for choosing ${this.deckInPlay.name}`)
             }
     }
@@ -62,12 +63,12 @@ class Game {
         this.deckInPlay.shuffle();
         let noOfCardsPerPlayer= Math.floor(this.deckInPlay.cards.length/this.players.length);
 
-        // console.log(this.deckInPlay)
-        // console.log(this.players)
+        console.log(this.deckInPlay)
+        console.log(this.players)
 
-        // console.log (`this is deckplay ${this.deckInPlay.cards.length}`)
-        // console.log (this.players.length)
-        // console.log (noOfCardsPerPlayer)
+        console.log (`this is deckplay ${this.deckInPlay.cards.length}`)
+        console.log (this.players.length)
+        console.log (noOfCardsPerPlayer)
         let n = 0;
         let deckCardNo = 0;
         while (n < noOfCardsPerPlayer){
@@ -85,8 +86,6 @@ class Game {
         //     cardsdealtmessage = cardsdealtmessage.concat (`${this.players[i].name} you have .${this.players[i].hand.length} `)
         // }
         // alert (`${cardsdealtmessage}`)
-
- // remember that number validation needs to happen.
     }
 }
 
