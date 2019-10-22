@@ -48,20 +48,25 @@ class Game {
         this.deckInPlay = this.deckOptions[(parseInt(userDeck)-1)]
         alert (`Thank you for choosing ${this.deckInPlay.name}`)
         this.deckInPlay.shuffle();
-        let noOfCardsPerPlayer= Math.floor(this.deckInPlay.length/this.players.length);
+        let noOfCardsPerPlayer= Math.floor(this.deckInPlay.cards.length/this.players.length);
+
+        console.log(this.deckInPlay)
+        console.log(this.players)
+
         console.log (`this is deckplay ${this.deckInPlay.length}`)
         console.log (this.players.length)
         console.log (noOfCardsPerPlayer)
         let n = 0;
         let deckCardNo = 0;
-        do {
+        while (n < noOfCardsPerPlayer){
             for (let p=0; p<this.players.length; p++){
                 this.players[p].hand.push(this.deckInPlay.cards[deckCardNo]);
                 deckCardNo++;
             }
-        n += 1;
+            n += 1;
+        }
         console.log(n);
-        } while (n < noOfCardsPerPlayer);
+        
         console.log (this.players[0].hand)
         // let cardsdealtmessage = ("Thank you the cards have now been dealt")
         // for (let c=0; c < noOfCardsPerPlayer.length; c++) {
@@ -69,9 +74,9 @@ class Game {
         // }
         // alert (`${cardsdealtmessage}`)
 
-    } // remember that number validation needs to happen.
+ // remember that number validation needs to happen.
+    }
 }
-
 //deal, loop through deck and distribute to players in turn. 
 
 class Player {
